@@ -17,7 +17,7 @@ class AdaBoostClassifier(BaseEstimator):
         self.estimators = []
 
     def fit(self, X, y):
-        sample_weights = np.ones(np.alen(X)) * (1.0 / np.alen(X))
+        sample_weights = np.ones(len(X)) * (1.0 / len(X))
         y_changed = y
         y_changed[y == 0] = -1
         for iboost in np.arange(self.n_estimators):
@@ -41,7 +41,7 @@ class AdaBoostClassifier(BaseEstimator):
         return self
 
     def predict_proba(self, X):
-        predictions = np.zeros(np.alen(X))
+        predictions = np.zeros(len(X))
         for iboost in np.arange(self.n_estimators):
             a = self.alphas[iboost]
             predictions += a * self.estimators[iboost].predict(X)
